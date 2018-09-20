@@ -1,16 +1,33 @@
+#' Ggplot2 Soccer Field Markings
+#' @param xmin The origin of x for the markings to begin. X is 'across' i.e. along the halfway line
+#' @param xmax The maximum value of x for the markings to end
+#' @param ymin The origin of y for the markings to begin. Y is 'along' i.e. up the touchline
+#' @param ymax The maximum value of y for the markings to end
+#' @param thickness The thickness of the markings
+#' @param markings Which markings to plot from the most basic rectangle to full pitch markings
+#' @param palette The palette to use to colour the field/markings.
+#'   Standard arguments are classic (the 'natural' colours), bw (a greyscale plot), or blues (darkblue),
+#'   but custom palettes can be supplied
+#' @param layout The orientation of the final plot. Defaults to landscape (so coord_flip() s the plot)
+#' @param portion The portion of the field to plot. 
+#'   Standard arguments are the whole pitch (full) or half-pitch (half) but custom coordinates can be supplied.
+#' @examples
+#' @author Robert Hickman
+#' @export
+
 draw_soccerpitch <- function(xmin = 0,
                              xmax = 100 * 2/3,
                              ymin = 0,
                              ymax = 100,
                              thickness = 1.5,
                              markings = "full",
-                             palette = "grass",
+                             palette = "classic",
                              layout = "landscape",
                              portion = "full") {
   
   #set the colour scale based on the palette supplied
   colscale = switch(palette,
-                    "grass" = c("#538032", "#ffffff", "#000000"),
+                    "classic" = c("#538032", "#ffffff", "#000000"),
                     "bw" = c("#fbf7f5", "#a8a8a8", "#7e7e7e"),
                     "blues" = c("#00004c", "#ffffff", "#ff0000"))
   names(colscale) = c("grass", "lines", "features")

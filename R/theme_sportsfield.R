@@ -1,3 +1,9 @@
+#' Sportsfield Ggplot2 Theme
+#' @param ratio The aspect ration of the plot to output
+#' @examples
+#' @author Robert Hickman
+#' @export
+
 theme_sportsfield <- function(ratio = 1) {
   theme <- theme_void() +
     theme(plot.margin = margin(0, 0 ,0 ,0))
