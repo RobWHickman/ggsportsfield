@@ -69,10 +69,13 @@ draw_soccerpitch <- function(xmin = 0,
       geom_rect(aes(xmin=xmin-0.05*xmax,xmax=xmax+0.05*xmax,ymin=ymin-0.05*xmax,ymax=ymax+0.05*xmax),
                 fill = colscale["grass"]),
       geom_rect(aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax), fill = colscale["grass"],
-                colour = colscale["lines"], size = thickness)
+                colour = colscale["lines"], size = thickness),
+      #goals
+      geom_segment(aes(y = goal_y, yend = goal_y, x = goal_x[1], xend = goal_x[2]),
+                   colour = colscale["features"], size = thickness + 0.5)
       )
 
-  if(markings != "plain") {
+  if(markings == "major" | markings == "full") {
     soccer_markings <- append(soccer_markings, list(
       #halfway
       geom_path(aes(x = centrecircle_x, y = centrecircle_y),
@@ -83,10 +86,7 @@ draw_soccerpitch <- function(xmin = 0,
       geom_segment(aes(y = rep(c(ymax, ymin), 2), yend = p_box_sides_y, x = p_box_sides_x, xend = p_box_sides_x),
                    colour = colscale["lines"], size = thickness),
       geom_segment(aes(y = p_box_top_y, yend = p_box_top_y, x = p_box_top_x[1], xend = p_box_top_x[2]),
-                   colour = colscale["lines"], size = thickness),
-      #goals
-      geom_segment(aes(y = goal_y, yend = goal_y, x = goal_x[1], xend = goal_x[2]),
-                   colour = colscale["features"], size = thickness + 0.5)
+                   colour = colscale["lines"], size = thickness)
     ))}
 
   if(markings == "full") {
