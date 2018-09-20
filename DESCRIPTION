@@ -17,3 +17,5 @@ VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8
 Collate:
+  draw_soccerpitch.R
+  theme_sportsfield.R
