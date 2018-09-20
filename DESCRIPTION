@@ -1,0 +1,18 @@
+Package: ggsportsfield
+Type: Package
+Title: Plot Sports Field Markings
+Description: Simple sports field plots using `ggplot2`.
+Depends: R (>= 3.5.1)
+License: MIT + file LICENSE
+Version: 2.0.0
+Date: 2017-04-07
+Authors@R: c(person("Robert", "Hickman", role = c("aut","cre"), email = "robwhickman@gmail.com"))
+URL: https://github.com/robwhickman/ggsportsfield
+BugReports: https://github.com/robwhickman/ggsportsfield/issues
+LazyData: true
+Imports:
+Suggests:
+VignetteBuilder: knitr
+RoxygenNote: 6.1.0
+Encoding: UTF-8
+Collate:
