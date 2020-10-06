@@ -1,0 +1,62 @@
+# this is just a gist worked on over one lunch and totally incomplete
+# place here in case I come back to this project
+
+library(ggplot2)
+circle_func <- function(dim, d, length_out = 5000) {
+  if(dim == "x") {
+    return((cos(seq(0,2*pi,length.out = length_out)) * d))
+  } else if(dim == "y") {
+    return((sin(seq(0,2*pi,length.out = length_out)) * d))
+  }
+}
+
+# length and width of pitch in m
+length <- 180
+width <- 128
+w <- width / 2
+l <- length / 2
+
+# backline of pitch in m
+goal = 6.4
+goal_section = 9
+backline = 6.4*3
+g <- goal / 2
+bl <- backline/2
+
+outer_x <- circle_func("x", w) + w
+outer_y <- circle_func("y", l) + l
+
+center_diameter <- 10
+inner_center_diameter <- 3
+cd <- center_diameter / 2
+icd <- inner_center_diameter/2
+
+fifty <- 50
+f <- fifty / 2
+fiftym_x <- circle_func("x", fifty) + w
+fiftym_y <- circle_func("y", fifty)
+
+actual_length <- max(outer_y[outer_x < (w-bl) | outer_x > (w+bl)])
+
+p <- ggplot() +
+  # outer boundary
+  geom_path(aes(x = outer_x[which(outer_x < (w-bl) | outer_x > (w+bl))], outer_y[outer_x < (w-bl) | outer_x > (w+bl)]), colour = "white") +
+  # centre circle
+  geom_path(aes(x = circle_func("x", icd) + w, circle_func("y", icd) + l), colour = "white") +
+  geom_path(aes(x = circle_func("x", cd) + w, circle_func("y", cd) + l), colour = "white") +
+  geom_path(aes(x = c(-icd, icd) + w, y = c(0, 0) + l), colour = "white") +
+  # centre square
+  geom_rect(aes(xmin = w - f, xmax = w + f, ymin = l - f, ymax = l + f), fill = NA, colour = "white") +
+  # goals
+  geom_rect(aes(xmin = w - g, xmax = w + g, ymin = length - actual_length, ymax = goal_section + (length - actual_length)), fill = NA, colour = "white") +
+  geom_rect(aes(xmin = w - g, xmax = w + g, ymin = actual_length, ymax = actual_length - goal_section), fill = NA, colour = "white") +
+  # fifties
+  geom_path(aes(x = fiftym_x[which(fiftym_y > 25)], y = fiftym_y[which(fiftym_y > 25)]), colour = "white") +
+  geom_path(aes(x = fiftym_x[which(fiftym_y < -25)], y = actual_length + fiftym_y[which(fiftym_y < -25)]), colour = "white") +
+  # fluff
+  labs(
+    title = "messy aussie rules pitch",
+    subtitle = "spaghetti code",
+    x = "x dminesion (m)",
+    y = "y dimension (m)"
+  ) 
